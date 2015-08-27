@@ -9,10 +9,20 @@ public class TestUsuarioDAO {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		testBuscarTodos();
+		testAutenticar();
 	}
 	
-	private static void testBuscarTodos() {
+	public static void testAutenticar() {
+		// TODO Auto-generated method stub
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		Usuario usu = new Usuario();
+		usu.setLogin("jjj");
+		usu.setSenha("123");
+		Usuario retorno = usuarioDAO.autenticar(usu);
+		System.out.println(retorno);
+	}
+
+	public static void testBuscarTodos() {
 		// TODO Auto-generated method stub
 		UsuarioDAO usuDAO = new UsuarioDAO();
 		List<Usuario> list = usuDAO.buscarTodos();
@@ -21,7 +31,7 @@ public class TestUsuarioDAO {
 		}
 	}
 
-	private static void testBuscaPorId() {
+	public static void testBuscaPorId() {
 		// TODO Auto-generated method stub
 		UsuarioDAO usuDAO = new UsuarioDAO();
 		Usuario usu = usuDAO.buscaPorId(4);

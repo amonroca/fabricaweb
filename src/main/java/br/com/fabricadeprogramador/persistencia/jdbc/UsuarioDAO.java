@@ -60,7 +60,7 @@ public class UsuarioDAO {
 
 	public void salvar(Usuario usu) {
 		// TODO Auto-generated method stub
-		if(usu.getId() != null){
+		if(usu.getId() != null && usu.getId() != 0){
 			alterar(usu);
 		}
 		else{
@@ -109,6 +109,31 @@ public class UsuarioDAO {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	public Usuario autenticar(Usuario usuConsulta){
+		String sql = "select * from usuario where login=? and senha=?";
+		
+		try (PreparedStatement preparador = con.prepareStatement(sql)){
+			preparador.setString(1, usuConsulta.getLogin());
+			preparador.setString(2, usuConsulta.getSenha());
+			ResultSet resultado = preparador.executeQuery();
+			if(resultado.next()){
+			Usuario usuario = new Usuario();
+			usuario.setId(resultado.getInt("id"));
+			usuario.setNome(resultado.getString("nome"));
+			usuario.setLogin(resultado.getString("login"));
+			usuario.setSenha(resultado.getString("senha"));
+			return usuario;
+			}
+			else{
+				return null;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }
