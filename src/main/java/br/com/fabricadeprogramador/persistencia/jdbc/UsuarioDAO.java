@@ -15,7 +15,7 @@ public class UsuarioDAO {
 
 	public void cadastrar(Usuario usu) {
 		// TODO Auto-generated method stub
-		String sql = "insert into usuario (nome, login, senha) values (?, ?, ?)";
+		String sql = "insert into usuario (nome, login, senha) values (?, ?, md5(?))";
 		
 		try (PreparedStatement preparador = con.prepareStatement(sql)){
 			
@@ -112,7 +112,7 @@ public class UsuarioDAO {
 	}
 	
 	public Usuario autenticar(Usuario usuConsulta){
-		String sql = "select * from usuario where login=? and senha=?";
+		String sql = "select * from usuario where login=? and senha=md5(?)";
 		
 		try (PreparedStatement preparador = con.prepareStatement(sql)){
 			preparador.setString(1, usuConsulta.getLogin());
